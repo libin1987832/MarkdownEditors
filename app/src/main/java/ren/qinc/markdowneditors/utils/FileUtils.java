@@ -21,12 +21,14 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.OpenableColumns;
 import android.support.annotation.NonNull;
 
 import java.io.BufferedReader;
 import java.io.Closeable;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
@@ -458,13 +460,21 @@ public class FileUtils {
         else if (ContentResolver.SCHEME_FILE.equals(scheme)) {
             data = uri.getPath();
         } else if (ContentResolver.SCHEME_CONTENT.equals(scheme)) {
-            Cursor cursor = context.getContentResolver().query(uri, new String[]{MediaStore.Images.ImageColumns.DATA}, null, null, null);
+            Cursor cursor = context.getContentResolver().query(uri, /*new String[]{MediaStore.Images.ImageColumns.DATA*?}*/null, null, null, null);
             if (null != cursor) {
                 if (cursor.moveToFirst()) {
                     int index = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+
                     if (index > -1) {
                         data = cursor.getString(index);
+                    }else
+                    {
+                        java.util.List  tmp=uri.getPathSegments();
+                        data=Environment.getExternalStorageDirectory().getPath();
+                        for(int i=1;i<tmp.size();i++)
+                           data=data+'/'+tmp.get(i);
                     }
+
                 }
                 cursor.close();
             }

@@ -35,6 +35,18 @@
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+   <!--         <intent-filter>
+
+                <action android:name="android.intent.action.EDIT"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+
+                <data
+                    android:host="*"
+                    android:mimeType="text/plain"
+                    android:pathPattern="*"
+                    android:scheme="content"/>
+            </intent-filter>-->
         </activity>
         <activity
             android:name=".view.AboutActivity"
@@ -70,8 +82,11 @@
 
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
-
-
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\.md"
+                    android:scheme="content"/>
                 <data
                     android:host="*"
                     android:mimeType="*/*"
@@ -89,6 +104,17 @@
                     android:mimeType="*/*"
                     android:pathPattern=".*\\.mdown"
                     android:scheme="file"/>
+            </intent-filter>
+            <intent-filter>
+
+                <action android:name="android.intent.action.EDIT"/>
+                <!--<action android:name="android.intent.action.VIEW"/>-->
+                <category android:name="android.intent.category.DEFAULT"/>
+
+                <data
+                    android:scheme="content"/>
+                <data
+                    android:mimeType="text/plain"/>
             </intent-filter>
         </activity>
 

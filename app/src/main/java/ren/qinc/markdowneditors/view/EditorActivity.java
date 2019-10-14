@@ -59,6 +59,7 @@ public class EditorActivity extends BaseToolbarActivity implements IEditorActivi
     public static final String SHARED_ELEMENT_COLOR_NAME = "SHARED_ELEMENT_COLOR_NAME";
     private static final String SCHEME_FILE = "file";
     private static final String SCHEME_Folder = "folder";
+    private static final String SCHEME_CONTENT="content";
 
     private EditorFragment mEditorFragment;
     private EditorMarkdownFragment mEditorMarkdownFragment;
@@ -225,14 +226,23 @@ public class EditorActivity extends BaseToolbarActivity implements IEditorActivi
     private void getIntentData() {
         Intent intent = this.getIntent();
         int flags = intent.getFlags();
+        String type = getIntent().getType();
+        // mImportingUri=file:///storage/emulated/0/Vlog.xml
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        Uri uri = intent.getData();
+
+        if (uri != null && SCHEME_CONTENT.equalsIgnoreCase(uri.getScheme())) {
+            //这是一个文件
+            currentFilePath = FileUtils.uri2FilePath(getBaseContext(), uri);
+        }
         if ((flags & Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) == 0) {
             if (intent.getAction() != null && Intent.ACTION_VIEW.equals(intent.getAction())) {
                 if (SCHEME_FILE.equals(intent.getScheme())) {
                     //文件
-                    String type = getIntent().getType();
+                    //String type = getIntent().getType();
                     // mImportingUri=file:///storage/emulated/0/Vlog.xml
                     intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                    Uri uri = intent.getData();
+                    //Uri uri = intent.getData();
 
                     if (uri != null && SCHEME_FILE.equalsIgnoreCase(uri.getScheme())) {
                         //这是一个文件
