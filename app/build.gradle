@@ -77,8 +77,8 @@ dependencies {
     compile 'com.jakewharton:butterknife:7.0.1'
 
     //崩溃异常提示
-    debugCompile 'me.drakeet.library:crashwoodpecker:0.9.7'
-    releaseCompile 'me.drakeet.library:crashwoodpecker-do-nothing:0.9.7'
+  //  debugCompile 'me.drakeet.library:crashwoodpecker:0.9.7'
+  //  releaseCompile 'me.drakeet.library:crashwoodpecker-do-nothing:0.9.7'
 
 
     //Debug提供内存监测
